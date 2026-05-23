@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You Are Invited</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f5f2ea;
+    --ink:#1a1813;
+    --gold:#9a7b3f;
+    --gold-red:#b5733f;
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  html,body{min-height:100vh;background:var(--bg);}
+  body{
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Jost',sans-serif;color:var(--ink);
+    padding:64px 30px;overflow-x:hidden;position:relative;
+  }
+
+  main{
+    position:relative;z-index:2;
+    text-align:center;max-width:440px;width:100%;
+    opacity:0;animation:enter 1.6s ease .4s forwards;
+  }
+  @keyframes enter{to{opacity:1;}}
+
+  .u{opacity:0;transform:translateY(12px);
+     animation:up 1.3s cubic-bezier(.2,.7,.2,1) forwards;}
+  @keyframes up{to{opacity:1;transform:translateY(0);}}
+
+  .grain{
+    position:fixed;inset:0;z-index:3;pointer-events:none;
+    opacity:.13;mix-blend-mode:overlay;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .kicker{
+    font-weight:500;font-size:11px;letter-spacing:.46em;text-transform:uppercase;
+    color:var(--gold);padding-left:.46em;animation-delay:.7s;
+  }
+
+  /* ───── ring system ───── */
+  .ring-wrap{
+    position:relative;width:min(300px,72vw);margin:36px auto 40px;
+    overflow:visible;
+  }
+  /* keep it a square box so circle math is clean */
+  .ring-wrap::before{content:'';display:block;padding-top:100%;}
+
+  /* diffused glow lives INSIDE the same svg as the ring → identical coordinates.
+     Inner edge stays pinned to the ring; the OUTER edge grows outward (springs
+     from the ring's edge) via animated gradient stops below. */
+  .halo{
+    opacity:0;
+    animation:bloom .6s ease 2.7s forwards;
+  }
+  @keyframes bloom{to{opacity:1;}}
+
+  .ring-svg{
+    position:absolute;inset:0;width:100%;height:100%;
+    display:block;overflow:visible;z-index:1;
+  }
+  .ring{
+    fill:none;stroke:var(--gold);stroke-width:.8;
+    filter:drop-shadow(0 0 1px rgba(181,115,63,.5));
+    stroke-dasharray:616;stroke-dashoffset:616;
+    transform:rotate(-90deg);transform-origin:center;
+    animation:scribe 1.9s cubic-bezier(.45,.05,.2,1) .7s forwards;
+  }
+  @keyframes scribe{to{stroke-dashoffset:0;}}
+
+  /* interior: text only */
+  .ring-center{
+    position:absolute;inset:0;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:7px;z-index:2;
+    opacity:0;animation:up 1.2s cubic-bezier(.2,.7,.2,1) 1.8s forwards;
+  }
+  .rc-top{
+    font-weight:400;font-size:11px;letter-spacing:.42em;text-transform:uppercase;
+    color:var(--ink);opacity:.72;padding-left:.42em;
+  }
+  .rc-mid{
+    font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;
+    font-size:clamp(30px,8vw,38px);line-height:1;color:var(--ink);letter-spacing:.01em;
+  }
+  .rc-bot{
+    font-weight:400;font-size:11.5px;letter-spacing:.36em;text-transform:uppercase;
+    color:var(--ink);opacity:.78;padding-left:.36em;
+  }
+
+  /* ───── below ───── */
+  .venue{animation-delay:2.1s;}
+  .venue .vn{
+    font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;
+    font-size:clamp(23px,6vw,29px);letter-spacing:.02em;color:var(--ink);
+  }
+  .venue a{
+    display:inline-block;margin-top:13px;text-decoration:none;
+    font-weight:400;font-size:11px;letter-spacing:.27em;text-transform:uppercase;
+    color:var(--ink);opacity:.85;
+    border-bottom:1px solid transparent;padding-bottom:3px;
+    transition:opacity .35s,border-color .35s;
+  }
+  .venue a:hover{opacity:1;border-color:var(--gold);}
+  .venue a .arr{color:var(--gold);margin-left:6px;font-size:10px;}
+  .venue .city{
+    font-weight:300;font-size:11px;letter-spacing:.34em;text-transform:uppercase;
+    color:var(--ink);opacity:.5;padding-left:.34em;margin-top:12px;
+  }
+
+  .warm{
+    font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;
+    font-size:16px;letter-spacing:.02em;color:var(--ink);opacity:.6;
+    margin-top:40px;animation-delay:2.4s;
+  }
+  .count{
+    font-weight:500;font-size:10.5px;letter-spacing:.44em;text-transform:uppercase;
+    color:var(--gold);padding-left:.44em;margin-top:18px;animation-delay:2.55s;
+  }
+</style>
+</head>
+<body>
+  <div class="grain"></div>
+
+  <main>
+    <div class="kicker u">You Are Invited</div>
+
+    <div class="ring-wrap">
+      <svg class="ring-svg" viewBox="0 0 200 200">
+        <defs>
+          <radialGradient id="ringGlow" cx="100" cy="100" r="140" gradientUnits="userSpaceOnUse">
+            <stop offset="0"     stop-color="#b5733f" stop-opacity="0"/>
+            <stop offset="0.695" stop-color="#b5733f" stop-opacity="0"/>
+            <stop offset="0.705" stop-color="#bd8453" stop-opacity="0.34"/>
+            <stop offset="0.74"  stop-color="#bd8453" stop-opacity="0.16">
+              <animate attributeName="offset" begin="2.7s" dur="1s" fill="freeze"
+                calcMode="spline" keyTimes="0;1" values="0.716;0.74"
+                keySplines="0.2 0.7 0.3 1"/>
+            </stop>
+            <stop offset="0.80"  stop-color="#b08a55" stop-opacity="0.06">
+              <animate attributeName="offset" begin="2.7s" dur="1s" fill="freeze"
+                calcMode="spline" keyTimes="0;1" values="0.724;0.80"
+                keySplines="0.2 0.7 0.3 1"/>
+            </stop>
+            <stop offset="0.88"  stop-color="#9a7b3f" stop-opacity="0">
+              <animate attributeName="offset" begin="2.7s" dur="1s" fill="freeze"
+                calcMode="spline" keyTimes="0;1" values="0.74;0.88"
+                keySplines="0.2 0.7 0.3 1"/>
+            </stop>
+          </radialGradient>
+          <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="1.3"/>
+          </filter>
+        </defs>
+        <circle class="halo" cx="100" cy="100" r="128" fill="url(#ringGlow)" filter="url(#soft)"></circle>
+        <circle class="ring" cx="100" cy="100" r="98"></circle>
+      </svg>
+      <div class="ring-center">
+        <div class="rc-top">Friday</div>
+        <div class="rc-mid">29 May</div>
+        <div class="rc-bot">6 PM</div>
+      </div>
+    </div>
+
+    <div class="venue u">
+      <div class="vn">Vue de Monde</div>
+      <a href="https://maps.google.com/?q=Vue+de+Monde,525+Collins+St,Melbourne+VIC+3000" target="_blank">
+        Level 55 · 525 Collins Street<span class="arr">↗</span>
+      </a>
+      <div class="city">Melbourne</div>
+    </div>
+
+    <div class="warm u">Come celebrate with me</div>
+    <div class="count u">in <span id="days">—</span> days</div>
+  </main>
+
+<script>
+  (function(){
+    var ev=new Date(2026,4,29),n=new Date();
+    var t=new Date(n.getFullYear(),n.getMonth(),n.getDate());
+    var d=Math.round((ev-t)/86400000);
+    var el=document.getElementById('days'),line=el.parentElement;
+    if(d>1)el.textContent=d;
+    else if(d===1)line.textContent='tomorrow';
+    else if(d===0)line.textContent='today';
+    else line.style.display='none';
+  })();
+</script>
+</body>
+</html>
