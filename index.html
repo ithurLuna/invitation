@@ -21,29 +21,29 @@
     font-family:'Jost',sans-serif;color:var(--ink);
     padding:64px 30px;overflow-x:hidden;position:relative;
   }
-
+ 
   main{
     position:relative;z-index:2;
     text-align:center;max-width:440px;width:100%;
     opacity:0;animation:enter 1.6s ease .4s forwards;
   }
   @keyframes enter{to{opacity:1;}}
-
+ 
   .u{opacity:0;transform:translateY(12px);
      animation:up 1.3s cubic-bezier(.2,.7,.2,1) forwards;}
   @keyframes up{to{opacity:1;transform:translateY(0);}}
-
+ 
   .grain{
     position:fixed;inset:0;z-index:3;pointer-events:none;
     opacity:.13;mix-blend-mode:overlay;
     background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
   }
-
+ 
   .kicker{
     font-weight:500;font-size:11px;letter-spacing:.46em;text-transform:uppercase;
     color:var(--gold);padding-left:.46em;animation-delay:.7s;
   }
-
+ 
   /* ───── ring system ───── */
   .ring-wrap{
     position:relative;width:min(300px,72vw);margin:36px auto 40px;
@@ -51,7 +51,7 @@
   }
   /* keep it a square box so circle math is clean */
   .ring-wrap::before{content:'';display:block;padding-top:100%;}
-
+ 
   /* diffused glow lives INSIDE the same svg as the ring → identical coordinates.
      Inner edge stays pinned to the ring; the OUTER edge grows outward (springs
      from the ring's edge) via animated gradient stops below. */
@@ -60,7 +60,7 @@
     animation:bloom .6s ease 2.7s forwards;
   }
   @keyframes bloom{to{opacity:1;}}
-
+ 
   .ring-svg{
     position:absolute;inset:0;width:100%;height:100%;
     display:block;overflow:visible;z-index:1;
@@ -73,7 +73,7 @@
     animation:scribe 1.9s cubic-bezier(.45,.05,.2,1) .7s forwards;
   }
   @keyframes scribe{to{stroke-dashoffset:0;}}
-
+ 
   /* interior: text only */
   .ring-center{
     position:absolute;inset:0;display:flex;flex-direction:column;
@@ -92,7 +92,7 @@
     font-weight:400;font-size:11.5px;letter-spacing:.36em;text-transform:uppercase;
     color:var(--ink);opacity:.78;padding-left:.36em;
   }
-
+ 
   /* ───── below ───── */
   .venue{animation-delay:2.1s;}
   .venue .vn{
@@ -103,16 +103,16 @@
     display:inline-block;margin-top:13px;text-decoration:none;
     font-weight:400;font-size:11px;letter-spacing:.27em;text-transform:uppercase;
     color:var(--ink);opacity:.85;
-    border-bottom:1px solid transparent;padding-bottom:3px;
-    transition:opacity .35s,border-color .35s;
+    border-bottom:1px solid var(--gold);padding-bottom:3px;
+    transition:opacity .35s;
   }
-  .venue a:hover{opacity:1;border-color:var(--gold);}
+  .venue a:hover{opacity:1;}
   .venue a .arr{color:var(--gold);margin-left:6px;font-size:10px;}
   .venue .city{
     font-weight:300;font-size:11px;letter-spacing:.34em;text-transform:uppercase;
     color:var(--ink);opacity:.5;padding-left:.34em;margin-top:12px;
   }
-
+ 
   .warm{
     font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;
     font-size:16px;letter-spacing:.02em;color:var(--ink);opacity:.6;
@@ -126,10 +126,10 @@
 </head>
 <body>
   <div class="grain"></div>
-
+ 
   <main>
     <div class="kicker u">You Are Invited</div>
-
+ 
     <div class="ring-wrap">
       <svg class="ring-svg" viewBox="0 0 200 200">
         <defs>
@@ -166,7 +166,7 @@
         <div class="rc-bot">6 PM</div>
       </div>
     </div>
-
+ 
     <div class="venue u">
       <div class="vn">Vue de Monde</div>
       <a href="https://maps.google.com/?q=Vue+de+Monde,525+Collins+St,Melbourne+VIC+3000" target="_blank">
@@ -174,11 +174,11 @@
       </a>
       <div class="city">Melbourne</div>
     </div>
-
+ 
     <div class="warm u">Come celebrate with me</div>
     <div class="count u">in <span id="days">—</span> days</div>
   </main>
-
+ 
 <script>
   (function(){
     var ev=new Date(2026,4,29),n=new Date();
@@ -192,4 +192,6 @@
   })();
 </script>
 </body>
+</html>
+ 
 </html>
